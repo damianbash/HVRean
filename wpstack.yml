@@ -1,0 +1,28 @@
+---
+
+  - name: Deploy WordPress using cloudformationstack
+    hosts: localhost
+    connection: local
+    gather_facts: false
+    tasks:
+    - name: Deploy Wordpress
+      cloudformation:
+        stack_name: WPStack
+        state: present
+        region: us-east-1
+        disable_rollback: true
+        template_url: https://candidate-uuels8b2xe.s3.us-east-2.amazonaws.com/WPStack.json
+        template_parameters:
+          KeyName: bashKP
+          CIDRVPC: 30.0.0.0/16
+          CIDRPublicSubnet: 30.0.1.0/24
+          CIDRPrivateSubnet1: 30.0.2.0/24
+          CIDRPrivateSubnet2: 30.0.210.0/24
+          VPCName: WordPressVPC
+          EC2InstanceType: t2.micro
+          SSHLocation: 0.0.0.0/0
+          DBName: hitachi
+          DBUser: hitachi
+          DBPassword: HVantara
+        tags:
+          Stack: Ansimation
